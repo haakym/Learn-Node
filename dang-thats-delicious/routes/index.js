@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const storeController = require('../controllers/storeController');
+const userController = require('../controllers/userController');
 const { catchErrors } = require('../handlers/errorHandlers');
 
 // Do work here
@@ -23,5 +24,18 @@ router.post('/add/:id',
 router.get('/stores/:id/edit', catchErrors(storeController.editStore));
 
 router.get('/store/:slug', catchErrors(storeController.getStoreBySlug));
+
+router.get('/tags', catchErrors(storeController.getStoresByTag));
+router.get('/tags/:tag', catchErrors(storeController.getStoresByTag));
+
+router.get('/login', userController.loginForm);
+router.post('/login', userController.loginForm);
+
+router.get('/register', userController.registerForm);
+
+// 1. Validate the registration data
+// 2. Register the user
+// 3. Log them in
+router.post('/register', userController.registerForm);
 
 module.exports = router;
